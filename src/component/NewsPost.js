@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getPage } from '../API/api'
-
+import style from './NewPost.module.css'
 import NewsCard from './NewsCard'
 
 class NewsPost extends Component {
@@ -10,30 +10,49 @@ class NewsPost extends Component {
 
         this.state = {
             newsId: [],
-            err: ''
+            err: '',
+            listDown: 1,
+            chunk: []
         }
     }
 
     componentDidMount() {
-        getPage(this.props.searchNews).then((data)=>{this.setState({newsId:data.data})})
+        console.log('mount')
+        getPage(this.props.searchNews).then((data) => { this.setState({ newsId: data.data, chunk: data.data.slice(0, 30) }) })
 
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.searchNews !== this.props.searchNews) {
-    //         const { data, err } = getPage(prevProps.searchNews);
-    //         console.log(data);
-    //         this.setState({ data, err })
-    //     }
-    // }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.listDown !== this.state.listDown && prevState.listDown !== 0) {
+            console.log("update")
+            this.setState(prevState => ({
+                chunk: prevState.newsId.slice(prevState.listDown, prevState.listDown + 30),
+            }))
+        }
+    }
+
+    chunkHandler = () => {
+        console.log("asd")
+        if (this.state.listDown <= this.state.newsId.length) {
+            this.setState(prevState => ({
+                listDown: prevState.listDown + 30
+            }))
+        }
+        else {
+            this.setState({ listDown: 0 })
+        }
+    }
 
     render() {
         return (
-            <div>
-                {console.log(this.state.newsId)}
-                {this.state.newsId.map((data,index)=>(
-                    <NewsCard key={index} data={data} index={index}/>
-                ))}    
+            <div className={style.newsPost}>
+                <div>
+                    {this.state.chunk && this.state.chunk.map((data, index) => (
+                        <NewsCard key={this.state.listDown + index} data={data} index={this.state.listDown + index} />
+                    ))}
+                </div>
+                {this.state.listDown !== 0 && <div className={style.more} onClick={this.chunkHandler}>More</div>}
+                <div className={style.hrLine}></div>
             </div>
         )
     }

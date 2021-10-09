@@ -1,0 +1,15 @@
+.newsPost{
+    background-color: rgba(248, 248, 232, 0.562);
+    color: gray;
+}
+.hrLine{
+    border: 2px solid;
+    width: 100%;
+    border-color:#ff6600
+}
+
+.more{
+    margin-left: 5%;
+    color: black;
+    margin-bottom: 10px;
+}
