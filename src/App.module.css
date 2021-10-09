@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.layout {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    margin: 5px 0 20px 0;
+}
+
+.layout-container {
+    width:85vw;
+}
+
+@media screen and (max-width:400px) {
+    .layout-container {
+        width: 100vw;
+    }
+}
