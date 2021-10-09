@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getPage } from '../API/api'
+import { getPage } from '../../API/api'
 import style from './NewPost.module.css'
 import NewsCard from './NewsCard'
 
@@ -23,11 +23,15 @@ class NewsPost extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.listDown !== this.state.listDown && prevState.listDown !== 0) {
-            console.log("update")
-            this.setState(prevState => ({
-                chunk: prevState.newsId.slice(prevState.listDown, prevState.listDown + 30),
-            }))
+        if (prevProps.searchNews !== this.props.searchNews) {
+            getPage(this.props.searchNews).then((data) => {
+                this.setState(
+                    {
+                        newsId: data.data,
+                        chunk: data.data.slice(0, 30),
+                        listDown:1
+                    })
+            })
         }
     }
 
@@ -35,7 +39,8 @@ class NewsPost extends Component {
         console.log("asd")
         if (this.state.listDown <= this.state.newsId.length) {
             this.setState(prevState => ({
-                listDown: prevState.listDown + 30
+                listDown: prevState.listDown + 30,
+                chunk: prevState.newsId.slice(prevState.listDown, prevState.listDown + 30),
             }))
         }
         else {

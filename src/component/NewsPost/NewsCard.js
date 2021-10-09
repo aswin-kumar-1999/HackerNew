@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import style from './NewsCard.module.css'
-import { getNews } from '../API/api'
+import { getNews } from '../../API/api'
 class NewsPage extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
+            data:'',
             isDataLoaded: false
         }
         console.log("inside")
