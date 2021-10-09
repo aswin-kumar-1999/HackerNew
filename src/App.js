@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import style from './App.module.css'
 
 import Header from './component/Header'
-import NewsPost from './component/NewsPost'
+import NewsPost from './component/NewsPost/NewsPost'
 
 export class App extends Component {
   constructor(props) {
@@ -12,9 +12,19 @@ export class App extends Component {
       searchNews:'topstories'
     }
   }
+
+  shouldComponentUpdate(nextProps,nextState){
+    if(nextState !== this.state.searchNews){
+      return true
+    }
+    else{
+      return false
+    }
+  }
   
   newsTagHandler=(tag)=>{
     this.setState({searchNews:tag})
+    console.log(tag)
   }
 
   render() {

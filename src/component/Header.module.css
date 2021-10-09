@@ -38,7 +38,7 @@ h4{
 }
 
 .navLink>span {
-   
+    cursor: pointer;
     font-weight: normal;
     color: black;
 }

@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 import style from './Header.module.css'
 class Header extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+
+        }
+    }
+
     render() {
         return (
             <div className={style.header}>
@@ -13,19 +21,19 @@ class Header extends Component {
                         <h4>Hacker News</h4>
                         <div className={style.navLink}>
                             &nbsp;&nbsp;&nbsp;
-                            <span>new </span> &nbsp; | &nbsp;
-                            <span> past</span> &nbsp;|&nbsp;
-                            <span> comment</span> &nbsp;|&nbsp;
-                            <span> ask</span> &nbsp;|&nbsp;
-                            <span> show</span>&nbsp; |&nbsp;
-                            <span> jobs</span> &nbsp;|&nbsp;
-                            <span> submit</span>
+                            <span onClick={() => { this.props.newsTag("newstories") }} >new </span> &nbsp; | &nbsp;
+                            <span onClick={() => { this.props.newsTag("newstories") }} > past</span> &nbsp;|&nbsp;
+                            <span onClick={() => { this.props.newsTag("beststories") }}> best</span> &nbsp;|&nbsp;
+                            <span onClick={() => { this.props.newsTag("askstories") }} > ask</span> &nbsp;|&nbsp;
+                            <span onClick={() => { this.props.newsTag("showstories") }}> show</span>&nbsp; |&nbsp;
+                            <span onClick={() => { this.props.newsTag("jobstories") }}> jobs</span> &nbsp;|&nbsp;
+                            <span > submit</span>
                         </div>
                     </div>
                     <div >login</div>
                 </div>
 
-            </div>
+            </div >
         )
     }
 }
