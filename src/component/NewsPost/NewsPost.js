@@ -82,18 +82,19 @@ class NewsPost extends Component {
                 <div>
                     {this.state.chunk && this.state.chunk.map((data, index) => (
                         <NewsCard
-                            key={this.state.listDown + index}
+                            key={index}
                             data={data}
                             index={this.state.listDown + index}
                             onLoading={this.loadHandler}
                             onError={this.errorHandler}
                             onComment={this.props.onComment}
+                            onUserDetail={this.props.onUser}
                         />
                     ))}
                 </div>
                 {!this.state.isLoading && !this.state.err && this.state.listDown !== 0 && <div className={style.more} onClick={this.chunkHandler}>More</div>}
                 {!this.state.isLoading && <div className={style.hrLine}></div>}
-                {this.state.isLoading && <div className={style.loader}><div class={style["lds-roller"]}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
+                {this.state.isLoading && <div className="loader"><div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
                 {this.state.err && <div className={style.error}>{this.state.err}</div>}
                 {/* </div> */}
             </Card>

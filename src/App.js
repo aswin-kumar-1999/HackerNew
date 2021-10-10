@@ -6,6 +6,7 @@ import NewsPost from './component/NewsPost/NewsPost'
 import Comment from './component/Comment/Comment'
 import Card from './component/UI/Card'
 import AddComment from './component/Comment/AddComment'
+import User from './component/User/User'
 
 export class App extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ export class App extends Component {
       searchNews: 'topstories',
       commentId: [],
       isComment: false,
-      parent: ''
+      parent: '',
+      user:''
     }
   }
 
@@ -36,19 +38,28 @@ export class App extends Component {
   commentHandler = ({ comment, parent }) => {
     this.setState({ commentId: comment, isComment: true, parent })
   }
-
+  userHandler=(user)=>{
+    this.setState({user})
+  }
   render() {
     return (
       <div className={style.layout} >
         <div className={style["layout-container"]}>
           <Header newsTag={this.newsTagHandler} />
-          {!this.state.isComment && <NewsPost searchNews={this.state.searchNews} onComment={this.commentHandler} />}
-          {this.state.isComment &&
+          {!this.state.isComment && !this.state.user &&
+            <NewsPost
+              searchNews={this.state.searchNews}
+              onComment={this.commentHandler}
+              onUser={this.userHandler}
+            />
+          }
+          {this.state.isComment && 
             <Card>
               <AddComment parent={this.state.parent} />
               <Comment comment={this.state.commentId} />
             </Card>
           }
+         {this.state.user && <User user={this.state.user} />}
         </div>
       </div>
     )

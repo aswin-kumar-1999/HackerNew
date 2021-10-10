@@ -17,8 +17,8 @@ class Header extends Component {
                 </div>
 
                 <div className={style.title}>
-                    <div>
                         <h4>Hacker News</h4>
+                    <div>
                         <div className={style.navLink}>
                             &nbsp;&nbsp;&nbsp;
                             <span onClick={() => { this.props.newsTag("newstories") }} >new </span> &nbsp; | &nbsp;
@@ -29,8 +29,8 @@ class Header extends Component {
                             <span onClick={() => { this.props.newsTag("jobstories") }}> jobs</span> &nbsp;|&nbsp;
                             <span > submit</span>
                         </div>
+                        <div className={style.login}>login</div>
                     </div>
-                    <div >login</div>
                 </div>
 
             </div >

@@ -1,0 +1,18 @@
+.user-layout{
+    margin:5px;
+    display: flex;
+}
+.info{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.links>div{
+    margin: 10px 0;
+    text-decoration:underline;
+    color: rgb(41, 40, 40);
+    cursor: pointer;
+    text-align: center;
+}

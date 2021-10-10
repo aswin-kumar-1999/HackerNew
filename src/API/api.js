@@ -42,16 +42,25 @@ export const getNewsLink = (link) => {
 
 
 export const getCommentPage = commentID => {
-    return   axios.get(`${baseURL}/item/${commentID}.json`)
-            .then((data) => {
-                return data.data
-            })
-            .catch(err => {
-                console.log("Error")
-                return err
-            })
-    
+    return axios.get(`${baseURL}/item/${commentID}.json`)
+        .then((data) => {
+            return data.data
+        })
+        .catch(err => {
+            console.log("Error")
+            return err
+        })
 }
 
+export const getUserPage = user => {
+    return axios.get(`${baseURL}/user/${user}.json`)
+        .then((data) => {
+            return data.data
+        })
+        .catch(err => {
+            console.log("Error")
+            return err
+        })
+}
 
 

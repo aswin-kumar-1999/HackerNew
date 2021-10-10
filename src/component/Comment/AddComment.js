@@ -45,7 +45,7 @@ class AddComment extends Component {
                             </span>
                             <div>
                                 {`${this.state.score} points by ${this.state.by}`} |
-                                <span > ${this.state.comment ? this.state.comment.length : 0} comments </span>
+                                <span > {this.state.comment ? this.state.comment.length : 0} comments </span>
                             </div>
                         </div>
                     </div>
