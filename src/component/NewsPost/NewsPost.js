@@ -10,28 +10,46 @@ class NewsPost extends Component {
 
         this.state = {
             newsId: [],
-            err: '',
+            err: false,
             listDown: 1,
-            chunk: []
+            chunk: [],
+            isLoading: true
         }
     }
 
     componentDidMount() {
         console.log('mount')
-        getPage(this.props.searchNews).then((data) => { this.setState({ newsId: data.data, chunk: data.data.slice(0, 30) }) })
+        this.setState({ isLoading: true })
+        getPage(this.props.searchNews)
+            .then((data) => {
+                this.setState({
+                    newsId: data.data,
+                    chunk: data.data.slice(0, 30)
+                })
+            })
+            .catch(err => {
+                this.setState({ err: "No details found" ,isLoading:false})
+            })
 
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.searchNews !== this.props.searchNews) {
-            getPage(this.props.searchNews).then((data) => {
-                this.setState(
-                    {
-                        newsId: data.data,
-                        chunk: data.data.slice(0, 30),
-                        listDown:1
-                    })
-            })
+            this.setState({ isLoading: true })
+            getPage(this.props.searchNews)
+                .then((data) => {
+                    console.log(data)
+                    this.setState(
+                        {
+                            newsId: data.data,
+                            chunk: data.data.slice(0, 30),
+                            listDown: 1
+                        })
+                })
+                .catch(err => {
+                    console.log("assd", err);
+                    this.setState({ err: "No details found" ,isLoading:false })
+                })
         }
     }
 
@@ -41,6 +59,7 @@ class NewsPost extends Component {
             this.setState(prevState => ({
                 listDown: prevState.listDown + 30,
                 chunk: prevState.newsId.slice(prevState.listDown, prevState.listDown + 30),
+                isLoading: true
             }))
         }
         else {
@@ -48,16 +67,32 @@ class NewsPost extends Component {
         }
     }
 
+    loadHandler = (loading) => {
+        this.setState({ isLoading: loading })
+    }
+
+    errorHandler = (err) => {
+        console.log(err);
+        this.setState({ err, isLoading: false })
+    }
     render() {
         return (
             <div className={style.newsPost}>
                 <div>
                     {this.state.chunk && this.state.chunk.map((data, index) => (
-                        <NewsCard key={this.state.listDown + index} data={data} index={this.state.listDown + index} />
+                        <NewsCard
+                            key={this.state.listDown + index}
+                            data={data}
+                            index={this.state.listDown + index}
+                            onLoading={this.loadHandler}
+                            onError={this.errorHandler}
+                        />
                     ))}
                 </div>
-                {this.state.listDown !== 0 && <div className={style.more} onClick={this.chunkHandler}>More</div>}
-                <div className={style.hrLine}></div>
+                {!this.state.isLoading && !this.state.err && this.state.listDown !== 0 && <div className={style.more} onClick={this.chunkHandler}>More</div>}
+                {!this.state.isLoading && <div className={style.hrLine}></div>}
+                {this.state.isLoading && <div className={style.loader}><div class={style["lds-roller"]}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
+                {this.state.err && <div className={style.error}>{this.state.err}</div>}
             </div>
         )
     }

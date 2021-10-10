@@ -7,7 +7,7 @@ class NewsPage extends Component {
         super(props)
 
         this.state = {
-            data:'',
+            data: '',
             isDataLoaded: false
         }
         console.log("inside")
@@ -34,6 +34,9 @@ class NewsPage extends Component {
                     isDataLoaded: true
                 })
             })
+            .then(() => {
+                this.props.onLoading(false)
+            })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -57,6 +60,13 @@ class NewsPage extends Component {
                         host: data.url !== undefined ? new URL(data.url).hostname : '',
                         isDataLoaded: true
                     })
+                })
+                .then(() => {
+                    this.props.onLoading(false)
+                })
+                .catch((err)=>{
+                    console.log(err);
+                    this.props.onError("Something went wrong")
                 })
         }
     }
