@@ -28,10 +28,30 @@ export const getNews = (id) => {
         })
 }
 
+export const getNewsLink = (link) => {
+    return axios.get(link)
+        .then((data) => {
+            // console.log(data)
+            return data
+        })
+        .catch(err => {
+            console.log("Error")
+            return err
+        })
+}
 
 
-
-
+export const getCommentPage = commentID => {
+    return   axios.get(`${baseURL}/item/${commentID}.json`)
+            .then((data) => {
+                return data.data
+            })
+            .catch(err => {
+                console.log("Error")
+                return err
+            })
+    
+}
 
 
 

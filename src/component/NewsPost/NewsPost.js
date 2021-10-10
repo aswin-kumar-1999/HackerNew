@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getPage } from '../../API/api'
 import style from './NewPost.module.css'
 import NewsCard from './NewsCard'
-
+import Card from '../UI/Card'
 class NewsPost extends Component {
 
     constructor(props) {
@@ -28,7 +28,7 @@ class NewsPost extends Component {
                 })
             })
             .catch(err => {
-                this.setState({ err: "No details found" ,isLoading:false})
+                this.setState({ err: "No details found", isLoading: false })
             })
 
     }
@@ -48,7 +48,7 @@ class NewsPost extends Component {
                 })
                 .catch(err => {
                     console.log("assd", err);
-                    this.setState({ err: "No details found" ,isLoading:false })
+                    this.setState({ err: "No details found", isLoading: false })
                 })
         }
     }
@@ -77,7 +77,8 @@ class NewsPost extends Component {
     }
     render() {
         return (
-            <div className={style.newsPost}>
+            // <div className={style.newsPost}>
+            <Card >
                 <div>
                     {this.state.chunk && this.state.chunk.map((data, index) => (
                         <NewsCard
@@ -86,6 +87,7 @@ class NewsPost extends Component {
                             index={this.state.listDown + index}
                             onLoading={this.loadHandler}
                             onError={this.errorHandler}
+                            onComment={this.props.onComment}
                         />
                     ))}
                 </div>
@@ -93,7 +95,8 @@ class NewsPost extends Component {
                 {!this.state.isLoading && <div className={style.hrLine}></div>}
                 {this.state.isLoading && <div className={style.loader}><div class={style["lds-roller"]}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
                 {this.state.err && <div className={style.error}>{this.state.err}</div>}
-            </div>
+                {/* </div> */}
+            </Card>
         )
     }
 }

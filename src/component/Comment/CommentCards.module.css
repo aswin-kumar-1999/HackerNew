@@ -1,0 +1,16 @@
+.author{
+    font-size: .6em;
+}
+.message{
+    margin: 10px;
+    font-size: .8em;
+    color: rgb(29, 29, 29);
+}
+
+.comment{
+    margin: 20px 10px;
+}
+
+.inner-comment{
+    margin-left: 5%;
+}

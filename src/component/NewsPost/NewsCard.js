@@ -64,11 +64,33 @@ class NewsPage extends Component {
                 .then(() => {
                     this.props.onLoading(false)
                 })
-                .catch((err)=>{
+                .catch((err) => {
                     console.log(err);
                     this.props.onError("Something went wrong")
                 })
         }
+    }
+
+    // fetchPage=()=>{
+    //     this.props.onLoading(true)
+    //     getNewsLink(this.state.url)
+    //     .then(data=>{
+    //         this.props.onLoading(true)
+    //         console.log("data",data)
+    //         this.setState({isDataLoaded:false,reDirectPage:data})
+    //     })
+    //     .catch(err=>{
+    //         this.setState({isDataLoaded:false,reDirectPage:err})
+    //     })
+    // }
+
+    handleComments = () => {
+        console.log("comment")
+        this.props.onComment(this.state.comment)
+    }
+
+    hideHandler = () => {
+        this.setState({ isDataLoaded: false })
     }
 
     render() {
@@ -85,7 +107,9 @@ class NewsPage extends Component {
                                 <span > &nbsp;&nbsp; ({this.state.host})</span>
                             </span>
                             <div>
-                                {`${this.state.score} points by ${this.state.by} | hide | ${this.state.comment ? this.state.comment.length : 0} comments`}
+                                {`${this.state.score} points by ${this.state.by}`} |
+                                <span onClick={this.hideHandler} className={style.btn}> hide </span>|
+                                <span onClick={this.handleComments} className={style.btn}> ${this.state.comment ? this.state.comment.length : 0} comments </span>
                             </div>
                         </div>
                     </div>
