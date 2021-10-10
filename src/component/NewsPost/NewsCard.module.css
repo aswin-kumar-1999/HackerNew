@@ -18,3 +18,7 @@
 .btn{
     cursor: pointer;
 }
+
+textarea{
+    margin-left: 20px;
+}

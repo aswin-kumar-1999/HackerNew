@@ -46,8 +46,6 @@ class NewsPage extends Component {
                     return data.data
                 })
                 .then(data => {
-                    console.log("comment", data.kids ? data.kids.length : 0)
-                    console.log(data.url)
                     this.setState({
                         by: data.by,
                         id: data.id,
@@ -86,7 +84,7 @@ class NewsPage extends Component {
 
     handleComments = () => {
         console.log("comment")
-        this.props.onComment(this.state.comment)
+        this.props.onComment({comment:this.state.comment,parent:this.props.data})
     }
 
     hideHandler = () => {

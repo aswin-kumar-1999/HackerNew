@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Card from '../UI/Card'
 import CommentCard from './CommentCard'
 
 import { getCommentPage } from '../../API/api'
@@ -10,27 +9,29 @@ class Comment extends Component {
         super(props)
 
         this.state = {
-            data:[]
+            data: []
         }
         this.commentArray = [];
     }
 
     componentDidMount() {
-
-        this.props.comment.map((id) =>
-            getCommentPage(id).then(data => {
-                this.setState((prevState)=>({data:[...prevState.data,data]}))
-            })
-        )
+        if (this.props.comment !== undefined) {
+            this.props.comment.map((id) =>
+                getCommentPage(id).then(data => {
+                    this.setState((prevState) => ({ data: [...prevState.data, data] }))
+                })
+            )
+        }
     }
 
     render() {
         return (
-            <Card>
+            <div>
+                
                 {this.state.data.map((data, index) => (
-                    <CommentCard by={data.by}  id={data.id} commentIds={data.kids} text={data.text}  key={index} />
+                    <CommentCard by={data.by} id={data.id} commentIds={data.kids} text={data.text} key={index} />
                 ))}
-            </Card>
+            </div>
         )
     }
 }
