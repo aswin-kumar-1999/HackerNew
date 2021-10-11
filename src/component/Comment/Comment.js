@@ -9,16 +9,18 @@ class Comment extends Component {
         super(props)
 
         this.state = {
-            data: []
+            data: [],
+            isLoading:true
         }
         this.commentArray = [];
     }
 
     componentDidMount() {
+
         if (this.props.comment !== undefined) {
             this.props.comment.map((id) =>
                 getCommentPage(id).then(data => {
-                    this.setState((prevState) => ({ data: [...prevState.data, data] }))
+                    this.setState((prevState) => ({ data: [...prevState.data, data] ,isLoading:false}))
                 })
             )
         }
@@ -27,8 +29,8 @@ class Comment extends Component {
     render() {
         return (
             <div>
-                
-                {this.state.data.map((data, index) => (
+                {this.state.isLoading && <div className="loader"><div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
+                {!this.state.isLoading && this.state.data.map((data, index) => (
                     <CommentCard by={data.by} id={data.id} commentIds={data.kids} text={data.text} key={index} />
                 ))}
             </div>

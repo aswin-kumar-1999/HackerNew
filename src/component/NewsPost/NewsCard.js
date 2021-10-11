@@ -96,7 +96,7 @@ class NewsPage extends Component {
         return (
             <React.Fragment>
                 {this.state.isDataLoaded
-                    &&
+                    && this.state.score !== undefined &&
                     <div className={style.newBlog}>
                         {this.props.index}.
                         <div className={style.innerBlog}>

@@ -61,11 +61,12 @@ export class User extends Component {
                     </div>
                 }
                 {this.state.isLoading && <div className="loader"><div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>}
+                {this.state.loadSubmission && console.log(this.state.submission)}
                 {this.state.loadSubmission && this.state.submission.map((data, index) => (
-                    <NewsCard
-                        key={this.state.listDown + index}
+                   <NewsCard
+                        key={index}
                         data={data}
-                        index={this.state.listDown + index}
+                        index={''}
                         onLoading={this.loadHandler}
                         onError={this.errorHandler}
                         onComment={this.props.onComment}

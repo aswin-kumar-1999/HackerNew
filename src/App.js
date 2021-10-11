@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter,Route,Redirect} from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import style from './App.module.css'
 
 import Header from './component/Header'
@@ -69,7 +69,11 @@ export class App extends Component {
               <Comment comment={this.state.commentId} />
             </Card>
           }
-          {this.state.user && <User user={this.state.user} />}
+          {this.state.user && <User
+            user={this.state.user}
+            onComment={this.commentHandler}
+            onUser={this.userHandler}
+          />}
         </div>
       </div>
     )

@@ -27,18 +27,18 @@
 }
 
 .title>div {
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
 }
 
 h4 {
     font-size: 1em;
-    display: inline;
+    display: inline-block;
 }
 
 .navLink {
-    padding: 0 5px;
+    padding: 0;
     color: rgb(31, 31, 31);
     font-weight: 300;
 }
