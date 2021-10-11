@@ -22,8 +22,22 @@ export class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({ searchNews: 'topstories' })
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState !== this.state.searchNews) {
+    console.log("Should update", nextState.searchNews)
+    if (nextState.searchNews !== this.state.searchNews) {
+      this.setState({ user: '', isComment: false, searchNews: nextState.searchNews })
+      return true
+    }
+    if (nextState.user !== this.state.user) {
+      this.setState({ user: nextState.user, isComment: false })
+      return true
+    }
+    if (nextState.isComment !== this.state.isComment) {
+      this.setState({ isComment: true })
       return true
     }
     else {
@@ -33,7 +47,7 @@ export class App extends Component {
 
   newsTagHandler = (tag) => {
 
-    this.setState({ searchNews: tag })
+    this.setState({ searchNews: tag, isComment: false })
     console.log(tag)
   }
 
@@ -41,7 +55,7 @@ export class App extends Component {
     this.setState({ commentId: comment, isComment: true, parent })
   }
   userHandler = (user) => {
-    this.setState({ user })
+    this.setState({ user, isComment: false })
   }
   render() {
     return (
@@ -61,19 +75,41 @@ export class App extends Component {
                 />
               }
             </Route>
-          </BrowserRouter>
+            <Route >
+              {this.state.isComment && <Redirect to={'/hackerNews/comment/' + this.state.commentId} />}
+            </Route>
+            <Route path={'/hackerNews/comment/' + this.state.commentId} exact>
 
-          {this.state.isComment &&
+              <Card>
+                <AddComment parent={this.state.parent} />
+                <Comment comment={this.state.commentId} />
+              </Card>
+
+            </Route>
+            <Route >
+              {this.state.user && <Redirect to={'/hackerNews/user/' + this.state.user} />}
+            </Route>
+            <Route path={'/hackerNews/user/' + this.state.user}>
+              <User
+                user={this.state.user}
+                onComment={this.commentHandler}
+                onUser={this.userHandler}
+              />
+
+            </Route>
+          </BrowserRouter>
+          {/* {this.state.isComment &&
             <Card>
               <AddComment parent={this.state.parent} />
               <Comment comment={this.state.commentId} />
             </Card>
-          }
-          {this.state.user && <User
+          } */}
+          {/* {this.state.user && <User
             user={this.state.user}
             onComment={this.commentHandler}
             onUser={this.userHandler}
-          />}
+          />
+          } */}
         </div>
       </div>
     )

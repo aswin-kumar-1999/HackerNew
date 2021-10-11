@@ -22,7 +22,7 @@ class Header extends Component {
                         <div className={style.navLink}>
                             &nbsp;&nbsp;&nbsp;
                             <span onClick={() => { this.props.newsTag("newstories") }} >new </span> &nbsp; | &nbsp;
-                            <span onClick={() => { this.props.newsTag("newstories") }} > past</span> &nbsp;|&nbsp;
+                            {/* <span onClick={() => { this.props.newsTag("newstories") }} > past</span> &nbsp;|&nbsp; */}
                             <span onClick={() => { this.props.newsTag("beststories") }}> best</span> &nbsp;|&nbsp;
                             <span onClick={() => { this.props.newsTag("askstories") }} > ask</span> &nbsp;|&nbsp;
                             <span onClick={() => { this.props.newsTag("showstories") }}> show</span>&nbsp; |&nbsp;
