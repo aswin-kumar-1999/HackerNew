@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {BrowserRouter,Route,Redirect} from 'react-router-dom'
 import style from './App.module.css'
 
 import Header from './component/Header'
@@ -17,7 +18,7 @@ export class App extends Component {
       commentId: [],
       isComment: false,
       parent: '',
-      user:''
+      user: ''
     }
   }
 
@@ -31,35 +32,44 @@ export class App extends Component {
   }
 
   newsTagHandler = (tag) => {
+
     this.setState({ searchNews: tag })
-    // console.log(tag)
+    console.log(tag)
   }
 
   commentHandler = ({ comment, parent }) => {
     this.setState({ commentId: comment, isComment: true, parent })
   }
-  userHandler=(user)=>{
-    this.setState({user})
+  userHandler = (user) => {
+    this.setState({ user })
   }
   render() {
     return (
       <div className={style.layout} >
         <div className={style["layout-container"]}>
           <Header newsTag={this.newsTagHandler} />
-          {!this.state.isComment && !this.state.user &&
-            <NewsPost
-              searchNews={this.state.searchNews}
-              onComment={this.commentHandler}
-              onUser={this.userHandler}
-            />
-          }
-          {this.state.isComment && 
+          <BrowserRouter>
+            <Route >
+              <Redirect to={'/hackerNews/' + this.state.searchNews} />
+            </Route>
+            <Route path={'/hackerNews/' + this.state.searchNews} exact>
+              {!this.state.isComment && !this.state.user &&
+                <NewsPost
+                  searchNews={this.state.searchNews}
+                  onComment={this.commentHandler}
+                  onUser={this.userHandler}
+                />
+              }
+            </Route>
+          </BrowserRouter>
+
+          {this.state.isComment &&
             <Card>
               <AddComment parent={this.state.parent} />
               <Comment comment={this.state.commentId} />
             </Card>
           }
-         {this.state.user && <User user={this.state.user} />}
+          {this.state.user && <User user={this.state.user} />}
         </div>
       </div>
     )

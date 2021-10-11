@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import style from './NewsCard.module.css'
-import { getNews } from '../../API/api'
+import { getNews, getNewsLink } from '../../API/api'
 class NewsPage extends Component {
 
     constructor(props) {
@@ -39,48 +39,48 @@ class NewsPage extends Component {
             })
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (prevProps.data !== this.props.data) {
-    //         getNews(this.props.data)
-    //             .then(data => {
-    //                 return data.data
-    //             })
-    //             .then(data => {
-    //                 this.setState({
-    //                     by: data.by,
-    //                     id: data.id,
-    //                     comment: data.kids,
-    //                     score: data.score,
-    //                     title: data.title,
-    //                     time: data.time,
-    //                     type: data.type,
-    //                     url: data.url,
-    //                     host: data.url !== undefined ? new URL(data.url).hostname : '',
-    //                     isDataLoaded: true
-    //                 })
-    //             })
-    //             .then(() => {
-    //                 this.props.onLoading(false)
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //                 this.props.onError("Something went wrong")
-    //             })
-    //     }
-    // }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.data !== this.props.data) {
+            getNews(this.props.data)
+                .then(data => {
+                    return data.data
+                })
+                .then(data => {
+                    this.setState({
+                        by: data.by,
+                        id: data.id,
+                        comment: data.kids,
+                        score: data.score,
+                        title: data.title,
+                        time: data.time,
+                        type: data.type,
+                        url: data.url,
+                        host: data.url !== undefined ? new URL(data.url).hostname : '',
+                        isDataLoaded: true
+                    })
+                })
+                .then(() => {
+                    this.props.onLoading(false)
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.props.onError("Something went wrong")
+                })
+        }
+    }
 
-    // fetchPage=()=>{
-    //     this.props.onLoading(true)
-    //     getNewsLink(this.state.url)
-    //     .then(data=>{
-    //         this.props.onLoading(true)
-    //         console.log("data",data)
-    //         this.setState({isDataLoaded:false,reDirectPage:data})
-    //     })
-    //     .catch(err=>{
-    //         this.setState({isDataLoaded:false,reDirectPage:err})
-    //     })
-    // }
+    fetchPage = () => {
+        this.props.onLoading(true)
+        getNewsLink(this.state.url)
+            .then(data => {
+                this.props.onLoading(true)
+                console.log("data", data)
+                this.setState({ isDataLoaded: false, reDirectPage: data })
+            })
+            .catch(err => {
+                this.setState({ isDataLoaded: false, reDirectPage: err })
+            })
+    }
 
     handleComments = () => {
         console.log("comment")
@@ -102,7 +102,7 @@ class NewsPage extends Component {
                         <div className={style.innerBlog}>
                             <span>
                                 <a href={this.state.url} className={style.link} >{this.state.title}</a>
-                                <span > &nbsp;&nbsp; ({this.state.host})</span>
+                                <span > &nbsp;&nbsp; {this.state.host ? `(${this.state.host})` : ''}</span>
                             </span>
                             <div>
                                 {`${this.state.score} points by `}
