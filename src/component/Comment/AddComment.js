@@ -50,8 +50,7 @@ class AddComment extends Component {
                         </div>
                     </div>
                 }
-                <textarea rows="4" cols="50" name="comment" form="usrform">
-                    Enter comment here...
+                <textarea rows="4" cols="50" name="comment" form="usrform" defaultValue='Enter comment here...'>      
                 </textarea>
             </React.Fragment>
         )

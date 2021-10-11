@@ -47,7 +47,6 @@ export const getCommentPage = commentID => {
             return data.data
         })
         .catch(err => {
-            console.log("Error")
             return err
         })
 }
@@ -58,8 +57,7 @@ export const getUserPage = user => {
             return data.data
         })
         .catch(err => {
-            console.log("Error")
-            return err
+            return err;
         })
 }
 

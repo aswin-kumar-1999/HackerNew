@@ -10,7 +10,7 @@ class Comment extends Component {
 
         this.state = {
             data: [],
-            isLoading:true
+            isLoading: true,
         }
         this.commentArray = [];
     }
@@ -19,9 +19,13 @@ class Comment extends Component {
 
         if (this.props.comment !== undefined) {
             this.props.comment.map((id) =>
-                getCommentPage(id).then(data => {
-                    this.setState((prevState) => ({ data: [...prevState.data, data] ,isLoading:false}))
-                })
+                getCommentPage(id)
+                    .then(data => {
+                        this.setState((prevState) => ({ data: [...prevState.data, data], isLoading: false }))
+                    })
+                    .catch(err => {
+                        console.log("ERROR", err)
+                    })
             )
         }
     }
@@ -33,6 +37,7 @@ class Comment extends Component {
                 {!this.state.isLoading && this.state.data.map((data, index) => (
                     <CommentCard by={data.by} id={data.id} commentIds={data.kids} text={data.text} key={index} />
                 ))}
+                {/* {this.state.dataLength === 0 && !this.state.isLoading && <div>Something went wrong </div>} */}
             </div>
         )
     }
