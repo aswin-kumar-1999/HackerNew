@@ -27,7 +27,7 @@ class Header extends Component {
                             <span onClick={() => { this.props.newsTag("askstories") }} > ask</span> &nbsp;|&nbsp;
                             <span onClick={() => { this.props.newsTag("showstories") }}> show</span>&nbsp; |&nbsp;
                             <span onClick={() => { this.props.newsTag("jobstories") }}> jobs</span> &nbsp;|&nbsp;
-                            <span > submit</span>
+                            {/* <span > submit</span> */}
                         </div>
                         <div className={style.login}>login</div>
                     </div>
